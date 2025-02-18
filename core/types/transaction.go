@@ -321,6 +321,9 @@ func (tx *Transaction) To() *common.Address {
 
 // Cost returns (gas * gasPrice) + (blobGas * blobGasPrice) + value.
 func (tx *Transaction) Cost() *big.Int {
+	if true {
+		return tx.Value()
+	}
 	total := new(big.Int).Mul(tx.GasPrice(), new(big.Int).SetUint64(tx.Gas()))
 	if tx.Type() == BlobTxType {
 		total.Add(total, new(big.Int).Mul(tx.BlobGasFeeCap(), new(big.Int).SetUint64(tx.BlobGas())))

@@ -80,7 +80,11 @@ func (result *ExecutionResult) Revert() []byte {
 }
 
 // IntrinsicGas computes the 'intrinsic gas' for a message with the given data.
+// TR: Modified so that nothing costs gas
 func IntrinsicGas(data []byte, accessList types.AccessList, isContractCreation bool, rules params.Rules) (uint64, error) {
+	if true {
+		return 0, nil
+	}
 	// Set the starting gas for the raw transaction
 	var gas uint64
 	if isContractCreation && rules.IsHomestead {
@@ -292,6 +296,9 @@ func (st *StateTransition) to() common.Address {
 }
 
 func (st *StateTransition) buyGas() error {
+	if true {
+		return nil
+	}
 	mgval := new(big.Int).SetUint64(st.msg.GasLimit)
 	mgval = mgval.Mul(mgval, st.msg.GasPrice)
 	balanceCheck := new(big.Int).Set(mgval)
